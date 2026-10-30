@@ -1,0 +1,436 @@
+{
+  "$defs": {
+    "Access": {
+      "enum": [
+        "read",
+        "write",
+        "destructive",
+        "unknown"
+      ],
+      "title": "Access",
+      "type": "string"
+    },
+    "AuthKind": {
+      "enum": [
+        "oauth2",
+        "openid_connect",
+        "bearer",
+        "api_key",
+        "cookie",
+        "basic",
+        "digest",
+        "unknown"
+      ],
+      "title": "AuthKind",
+      "type": "string"
+    },
+    "AuthMechanism": {
+      "properties": {
+        "kind": {
+          "$ref": "#/$defs/AuthKind"
+        },
+        "location": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Location"
+        },
+        "scheme": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Scheme"
+        },
+        "realm": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Realm"
+        },
+        "authorization_endpoint": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Authorization Endpoint"
+        },
+        "token_endpoint": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Token Endpoint"
+        },
+        "scopes": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Scopes",
+          "type": "array"
+        },
+        "grant_types": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Grant Types",
+          "type": "array"
+        },
+        "evidence": {
+          "items": {
+            "$ref": "#/$defs/Evidence"
+          },
+          "title": "Evidence",
+          "type": "array"
+        }
+      },
+      "required": [
+        "kind"
+      ],
+      "title": "AuthMechanism",
+      "type": "object"
+    },
+    "Confidence": {
+      "enum": [
+        "high",
+        "medium",
+        "low"
+      ],
+      "title": "Confidence",
+      "type": "string"
+    },
+    "Endpoint": {
+      "properties": {
+        "id": {
+          "title": "Id",
+          "type": "string"
+        },
+        "method": {
+          "title": "Method",
+          "type": "string"
+        },
+        "url": {
+          "title": "Url",
+          "type": "string"
+        },
+        "path_template": {
+          "title": "Path Template",
+          "type": "string"
+        },
+        "access": {
+          "$ref": "#/$defs/Access",
+          "default": "unknown"
+        },
+        "destructive": {
+          "default": false,
+          "title": "Destructive",
+          "type": "boolean"
+        },
+        "content_types": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Content Types",
+          "type": "array"
+        },
+        "parameters": {
+          "items": {
+            "$ref": "#/$defs/Parameter"
+          },
+          "title": "Parameters",
+          "type": "array"
+        },
+        "status_codes": {
+          "items": {
+            "type": "integer"
+          },
+          "title": "Status Codes",
+          "type": "array"
+        },
+        "auth_required": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Auth Required"
+        },
+        "rate_limit_signals": {
+          "items": {
+            "$ref": "#/$defs/RateLimitSignal"
+          },
+          "title": "Rate Limit Signals",
+          "type": "array"
+        },
+        "response_schema": {
+          "anyOf": [
+            {
+              "type": "object"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Response Schema"
+        },
+        "evidence": {
+          "items": {
+            "$ref": "#/$defs/Evidence"
+          },
+          "title": "Evidence",
+          "type": "array"
+        },
+        "confidence": {
+          "$ref": "#/$defs/Confidence",
+          "default": "medium"
+        }
+      },
+      "required": [
+        "id",
+        "method",
+        "url",
+        "path_template"
+      ],
+      "title": "Endpoint",
+      "type": "object"
+    },
+    "Evidence": {
+      "description": "Bằng chứng cho một phát hiện.",
+      "properties": {
+        "source": {
+          "$ref": "#/$defs/Source"
+        },
+        "detail": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Detail"
+        },
+        "confidence": {
+          "$ref": "#/$defs/Confidence",
+          "default": "medium"
+        }
+      },
+      "required": [
+        "source"
+      ],
+      "title": "Evidence",
+      "type": "object"
+    },
+    "Parameter": {
+      "properties": {
+        "name": {
+          "title": "Name",
+          "type": "string"
+        },
+        "location": {
+          "default": "query",
+          "title": "Location",
+          "type": "string"
+        },
+        "required": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Required"
+        },
+        "type": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Type"
+        },
+        "example": {
+          "anyOf": [
+            {},
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Example"
+        }
+      },
+      "required": [
+        "name"
+      ],
+      "title": "Parameter",
+      "type": "object"
+    },
+    "RateLimitSignal": {
+      "description": "Dấu hiệu rate-limit đọc được từ header (không chủ động test ở phần 1).",
+      "properties": {
+        "header": {
+          "title": "Header",
+          "type": "string"
+        },
+        "value": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Value"
+        }
+      },
+      "required": [
+        "header"
+      ],
+      "title": "RateLimitSignal",
+      "type": "object"
+    },
+    "ServiceInfo": {
+      "properties": {
+        "target": {
+          "title": "Target",
+          "type": "string"
+        },
+        "scope_hosts": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Scope Hosts",
+          "type": "array"
+        },
+        "title": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Title"
+        },
+        "collected_at": {
+          "format": "date-time",
+          "title": "Collected At",
+          "type": "string"
+        },
+        "tool_version": {
+          "default": "0.1.0",
+          "title": "Tool Version",
+          "type": "string"
+        }
+      },
+      "required": [
+        "target"
+      ],
+      "title": "ServiceInfo",
+      "type": "object"
+    },
+    "Source": {
+      "description": "Nguồn phát hiện ra endpoint / thông tin.",
+      "enum": [
+        "openapi",
+        "graphql",
+        "well_known",
+        "js_static",
+        "network",
+        "sitemap",
+        "robots"
+      ],
+      "title": "Source",
+      "type": "string"
+    }
+  },
+  "properties": {
+    "service": {
+      "$ref": "#/$defs/ServiceInfo"
+    },
+    "auth": {
+      "items": {
+        "$ref": "#/$defs/AuthMechanism"
+      },
+      "title": "Auth",
+      "type": "array"
+    },
+    "endpoints": {
+      "items": {
+        "$ref": "#/$defs/Endpoint"
+      },
+      "title": "Endpoints",
+      "type": "array"
+    },
+    "pricing_page_url": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Pricing Page Url"
+    },
+    "notes": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Notes",
+      "type": "array"
+    }
+  },
+  "required": [
+    "service"
+  ],
+  "title": "DiscoveryResult",
+  "type": "object"
+}

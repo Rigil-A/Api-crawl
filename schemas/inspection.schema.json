@@ -1,0 +1,453 @@
+{
+  "$defs": {
+    "AuthCheck": {
+      "properties": {
+        "required": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Required"
+        },
+        "status_with_credentials": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Status With Credentials"
+        },
+        "status_without_credentials": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Status Without Credentials"
+        },
+        "www_authenticate": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Www Authenticate"
+        }
+      },
+      "title": "AuthCheck",
+      "type": "object"
+    },
+    "FieldProbe": {
+      "properties": {
+        "field": {
+          "title": "Field",
+          "type": "string"
+        },
+        "sent_value_desc": {
+          "title": "Sent Value Desc",
+          "type": "string"
+        },
+        "status": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Status"
+        },
+        "error_excerpt": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Error Excerpt"
+        }
+      },
+      "required": [
+        "field",
+        "sent_value_desc"
+      ],
+      "title": "FieldProbe",
+      "type": "object"
+    },
+    "InspectedEndpoint": {
+      "properties": {
+        "id": {
+          "title": "Id",
+          "type": "string"
+        },
+        "method": {
+          "title": "Method",
+          "type": "string"
+        },
+        "resolved_url": {
+          "title": "Resolved Url",
+          "type": "string"
+        },
+        "path_template": {
+          "title": "Path Template",
+          "type": "string"
+        },
+        "access": {
+          "title": "Access",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "method",
+        "resolved_url",
+        "path_template",
+        "access"
+      ],
+      "title": "InspectedEndpoint",
+      "type": "object"
+    },
+    "MethodSupport": {
+      "properties": {
+        "allowed_methods": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Allowed Methods",
+          "type": "array"
+        },
+        "cors_methods": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Cors Methods",
+          "type": "array"
+        },
+        "source": {
+          "default": "OPTIONS",
+          "title": "Source",
+          "type": "string"
+        }
+      },
+      "title": "MethodSupport",
+      "type": "object"
+    },
+    "ParamRequirement": {
+      "properties": {
+        "name": {
+          "title": "Name",
+          "type": "string"
+        },
+        "location": {
+          "title": "Location",
+          "type": "string"
+        },
+        "status_when_omitted": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Status When Omitted"
+        },
+        "appears_required": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Appears Required"
+        }
+      },
+      "required": [
+        "name",
+        "location"
+      ],
+      "title": "ParamRequirement",
+      "type": "object"
+    },
+    "RateLimit": {
+      "properties": {
+        "requests_sent": {
+          "default": 0,
+          "title": "Requests Sent",
+          "type": "integer"
+        },
+        "limit_hit": {
+          "default": false,
+          "title": "Limit Hit",
+          "type": "boolean"
+        },
+        "threshold_requests": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Threshold Requests"
+        },
+        "elapsed_seconds": {
+          "anyOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Elapsed Seconds"
+        },
+        "retry_after": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Retry After"
+        },
+        "observed_headers": {
+          "additionalProperties": {
+            "type": "string"
+          },
+          "title": "Observed Headers",
+          "type": "object"
+        },
+        "note": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Note"
+        }
+      },
+      "title": "RateLimit",
+      "type": "object"
+    },
+    "SizeLimit": {
+      "properties": {
+        "field": {
+          "title": "Field",
+          "type": "string"
+        },
+        "location": {
+          "title": "Location",
+          "type": "string"
+        },
+        "unit": {
+          "default": "bytes",
+          "title": "Unit",
+          "type": "string"
+        },
+        "max_accepted": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Max Accepted"
+        },
+        "first_rejected": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "First Rejected"
+        },
+        "reject_status": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Reject Status"
+        },
+        "note": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Note"
+        }
+      },
+      "required": [
+        "field",
+        "location"
+      ],
+      "title": "SizeLimit",
+      "type": "object"
+    }
+  },
+  "properties": {
+    "endpoint": {
+      "$ref": "#/$defs/InspectedEndpoint"
+    },
+    "collected_at": {
+      "format": "date-time",
+      "title": "Collected At",
+      "type": "string"
+    },
+    "tool_version": {
+      "default": "0.1.0",
+      "title": "Tool Version",
+      "type": "string"
+    },
+    "baseline_status": {
+      "anyOf": [
+        {
+          "type": "integer"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Baseline Status"
+    },
+    "method_support": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/MethodSupport"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "auth": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/AuthCheck"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "required_params": {
+      "items": {
+        "$ref": "#/$defs/ParamRequirement"
+      },
+      "title": "Required Params",
+      "type": "array"
+    },
+    "field_probes": {
+      "items": {
+        "$ref": "#/$defs/FieldProbe"
+      },
+      "title": "Field Probes",
+      "type": "array"
+    },
+    "size_limit": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/SizeLimit"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "rate_limit": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/RateLimit"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "credentials_used": {
+      "title": "Credentials Used",
+      "type": "object"
+    },
+    "requests_spent": {
+      "default": 0,
+      "title": "Requests Spent",
+      "type": "integer"
+    },
+    "request_budget": {
+      "default": 0,
+      "title": "Request Budget",
+      "type": "integer"
+    },
+    "notes": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Notes",
+      "type": "array"
+    }
+  },
+  "required": [
+    "endpoint"
+  ],
+  "title": "InspectionResult",
+  "type": "object"
+}

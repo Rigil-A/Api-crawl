@@ -1,0 +1,9 @@
+.venv/
+__pycache__/
+*.pyc
+# outputs & secrets
+discovery.json
+inspection.json
+*.har
+auth.json
+storage_state.json
